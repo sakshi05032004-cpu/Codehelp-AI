@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { askGemini } from "@/lib/gemini";
+import { askGemini } from "../../../lib/gemini";
 
 export async function POST(request: Request) {
   try {
