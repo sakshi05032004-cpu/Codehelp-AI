@@ -47,23 +47,16 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-950 text-white px-6 py-10">
-      <div className="max-w-5xl mx-auto">
+    <main className="container">
+      <div className="wrapper">
 
-        {/* Header */}
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold">
-            CodeMentor AI
-          </h1>
-
-          <p className="text-gray-400 mt-2">
-            Your simple AI coding assistant
-          </p>
+        <div className="header">
+          <h1>CodeMentor AI</h1>
+          <p>Your simple AI coding assistant</p>
         </div>
 
-        {/* Input */}
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-          <label className="block text-lg font-semibold mb-3">
+        <div className="card">
+          <label className="label">
             Enter your code or problem
           </label>
 
@@ -71,53 +64,52 @@ export default function Home() {
             value={code}
             onChange={(e) => setCode(e.target.value)}
             placeholder="Paste your code or programming problem here..."
-            className="w-full h-64 bg-gray-950 border border-gray-700 rounded-lg p-4 text-gray-200 outline-none focus:border-blue-500 resize-none"
           />
 
-          {/* Buttons */}
-          <div className="flex flex-wrap gap-3 mt-5">
+          <div className="buttons">
+
             <button
+              className="explain"
               onClick={() => askAI("Explain")}
               disabled={loading}
-              className="px-5 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50"
             >
               Explain
             </button>
 
             <button
+              className="debug"
               onClick={() => askAI("Debug")}
               disabled={loading}
-              className="px-5 py-2 bg-red-600 rounded-lg hover:bg-red-700 disabled:opacity-50"
             >
               Debug
             </button>
 
             <button
+              className="complexity"
               onClick={() => askAI("Complexity")}
               disabled={loading}
-              className="px-5 py-2 bg-green-600 rounded-lg hover:bg-green-700 disabled:opacity-50"
             >
               Complexity
             </button>
+
           </div>
         </div>
 
-        {/* Response */}
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-5 mt-8">
-          <h2 className="text-xl font-semibold mb-4">
+        <div className="card">
+          <h2 className="response-title">
             AI Response
           </h2>
 
           {loading ? (
-            <p className="text-gray-400">
+            <p className="placeholder">
               Thinking...
             </p>
           ) : response ? (
-            <pre className="whitespace-pre-wrap text-gray-300 leading-7">
+            <div className="response">
               {response}
-            </pre>
+            </div>
           ) : (
-            <p className="text-gray-500">
+            <p className="placeholder">
               Your AI response will appear here.
             </p>
           )}
