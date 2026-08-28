@@ -1,15 +1,15 @@
-##CodeMentor AI
+# CodeMentor AI
 
 CodeMentor AI is a simple AI-powered coding assistant that helps users understand and analyze programming code using Google's Gemini API.
 
-#Features
+# Features
 
 - Explain code and programming problems
 - Find and explain bugs
 - Analyze time and space complexity
 - Simple and beginner-friendly interface
 
-#Tech Stack
+# Tech Stack
 
 - Next.js
 - React.js
@@ -17,7 +17,7 @@ CodeMentor AI is a simple AI-powered coding assistant that helps users understan
 - Google Gemini API
 - Tailwind CSS
 
-#How to Run
+# How to Run
 
 1. Clone the repository
 
@@ -42,7 +42,7 @@ Open:
 
 http://localhost:3000
 
-How It Works
+# How It Works
 
 The user enters code or a programming problem and selects an option such as Explain, Debug, or Complexity.
 
