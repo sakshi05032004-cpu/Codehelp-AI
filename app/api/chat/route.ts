@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { askGemini } from "../../../lib/gemini";
+import { askGemini } from "@/lib/gemini";
 
 export async function POST(request: Request) {
   try {
@@ -24,14 +24,11 @@ export async function POST(request: Request) {
       response,
     });
   } catch (error) {
-    console.error("API ERROR:", error);
+    console.error(error);
 
     return NextResponse.json(
       {
-        error:
-          error instanceof Error
-            ? error.message
-            : "Failed to get response from AI.",
+        error: "Failed to get response from AI.",
       },
       {
         status: 500,
