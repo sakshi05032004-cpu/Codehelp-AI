@@ -24,11 +24,14 @@ export async function POST(request: Request) {
       response,
     });
   } catch (error) {
-    console.error(error);
+    console.error("API ERROR:", error);
 
     return NextResponse.json(
       {
-        error: "Failed to get response from AI.",
+        error:
+          error instanceof Error
+            ? error.message
+            : "Failed to get response from AI.",
       },
       {
         status: 500,
