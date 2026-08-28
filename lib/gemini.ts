@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
 const apiKey = process.env.GEMINI_API_KEY;
 
@@ -6,16 +6,14 @@ if (!apiKey) {
   throw new Error("GEMINI_API_KEY is missing");
 }
 
-const genAI = new GoogleGenerativeAI(apiKey);
+const ai = new GoogleGenAI({
+  apiKey,
+});
 
 export async function askGemini(
   code: string,
   action: string
 ) {
-  const model = genAI.getGenerativeModel({
-    model: "gemini-2.5-flash",
-  });
-
   let instruction = "";
 
   if (action === "Explain") {
@@ -25,9 +23,7 @@ Explain the following code in simple terms.
 Break down the logic step by step.
 Mention important concepts used in the code.
 `;
-  }
-
-  if (action === "Debug") {
+  } else if (action === "Debug") {
     instruction = `
 Analyze the following code for errors or bugs.
 
@@ -38,9 +34,7 @@ Identify:
 
 If the code is already correct, explain that clearly.
 `;
-  }
-
-  if (action === "Complexity") {
+  } else if (action === "Complexity") {
     instruction = `
 Analyze the time and space complexity of the following code.
 
@@ -63,7 +57,10 @@ ${code}
 Keep the explanation clear and beginner-friendly.
 `;
 
-  const result = await model.generateContent(prompt);
+  const response = await ai.models.generateContent({
+    model: "gemini-2.5-flash",
+    contents: prompt,
+  });
 
-  return result.response.text();
+  return response.text;
 }
