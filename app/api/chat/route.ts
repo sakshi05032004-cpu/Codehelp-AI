@@ -24,15 +24,17 @@ export async function POST(request: Request) {
       response,
     });
   } catch (error) {
-    console.error(error);
+  console.error("Gemini API Error:", error);
 
-    return NextResponse.json(
-      {
-        error: "Failed to get response from AI.",
-      },
-      {
-        status: 500,
-      }
-    );
-  }
+  return NextResponse.json(
+    {
+      error:
+        error instanceof Error
+          ? error.message
+          : "Unknown Gemini API error",
+    },
+    {
+      status: 500,
+    }
+  );
 }
