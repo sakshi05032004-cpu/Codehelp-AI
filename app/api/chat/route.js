@@ -10,7 +10,7 @@ export async function POST(request) {
     if (!code || !action) {
       return NextResponse.json(
         {
-          error: "Code and action are required.",
+          error: "Code and action are required",
         },
         {
           status: 400,
@@ -28,10 +28,7 @@ export async function POST(request) {
 
     return NextResponse.json(
       {
-        error:
-          error instanceof Error
-            ? error.message
-            : "Failed to get response from AI.",
+        error: "Gemini API request failed",
       },
       {
         status: 500,
