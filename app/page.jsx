@@ -7,9 +7,9 @@ export default function Home() {
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const askAI = async (action) => {
+  const handleAction = async (action) => {
     if (!code.trim()) {
-      alert("Please enter your code or problem first.");
+      setResponse("Please enter some code or a programming problem.");
       return;
     }
 
@@ -23,25 +23,22 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          code,
-          action,
+          code: code,
+          action: action,
         }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Something went wrong");
+        throw new Error(data.error || "Something went wrong.");
       }
 
       setResponse(data.response);
     } catch (error) {
       console.error("Frontend error:", error);
-
       setResponse(
-        error instanceof Error
-          ? error.message
-          : "Something went wrong."
+        error.message || "Failed to get response from AI."
       );
     } finally {
       setLoading(false);
@@ -50,72 +47,64 @@ export default function Home() {
 
   return (
     <main className="container">
-      <div className="wrapper">
+      <header className="header">
+        <h1>CodeMentor AI</h1>
+        <p>Your simple AI coding assistant</p>
+      </header>
 
-        <header className="header">
-          <h1>CodeMentor AI</h1>
-          <p>Your simple AI coding assistant</p>
-        </header>
+      <section className="card">
+        <h2>Enter your code or problem</h2>
 
-        <section className="card">
-          <label className="label">
-            Enter your code or problem
-          </label>
+        <textarea
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+          placeholder="Paste your code or programming problem here..."
+          disabled={loading}
+        />
 
-          <textarea
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            placeholder="Paste your code or programming problem here..."
-          />
+        <div className="buttons">
+          <button
+            className="explain"
+            onClick={() => handleAction("Explain")}
+            disabled={loading}
+          >
+            Explain
+          </button>
 
-          <div className="buttons">
-            <button
-              className="explain"
-              onClick={() => askAI("Explain")}
-              disabled={loading}
-            >
-              Explain
-            </button>
+          <button
+            className="debug"
+            onClick={() => handleAction("Debug")}
+            disabled={loading}
+          >
+            Debug
+          </button>
 
-            <button
-              className="debug"
-              onClick={() => askAI("Debug")}
-              disabled={loading}
-            >
-              Debug
-            </button>
+          <button
+            className="complexity"
+            onClick={() => handleAction("Complexity")}
+            disabled={loading}
+          >
+            Complexity
+          </button>
+        </div>
+      </section>
 
-            <button
-              className="complexity"
-              onClick={() => askAI("Complexity")}
-              disabled={loading}
-            >
-              Complexity
-            </button>
+      <section className="response-card">
+        <h2>AI Response</h2>
+
+        {loading ? (
+          <div className="loading">
+            <div className="spinner"></div>
+            <p>CodeMentor AI is thinking...</p>
           </div>
-        </section>
-
-        <section className="card">
-          <h2 className="response-title">
-            AI Response
-          </h2>
-
-          {loading ? (
-            <p className="placeholder">
-              Thinking...
-            </p>
-          ) : response ? (
-            <div className="response">
-              {response}
-            </div>
-          ) : (
-            <p className="placeholder">
-              Your AI response will appear here.
-            </p>
-          )}
-        </section>
-
-      </div>
+        ) : response ? (
+          <pre className="response">{response}</pre>
+        ) : (
+          <p className="placeholder">
+            Your AI response will appear here.
+          </p>
+        )}
+      </section>
     </main>
   );
 }
