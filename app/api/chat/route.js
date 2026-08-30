@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { askGemini } from "../../../lib/gemini";
 
-export async function POST(request: Request) {
+export async function POST(request) {
   try {
     const body = await request.json();
 
@@ -24,17 +24,18 @@ export async function POST(request: Request) {
       response,
     });
   } catch (error) {
-  console.error("Gemini API Error:", error);
+    console.error("Gemini API Error:", error);
 
-  return NextResponse.json(
-    {
-      error:
-        error instanceof Error
-          ? error.message
-          : "Unknown Gemini API error",
-    },
-    {
-      status: 500,
-    }
-  );
+    return NextResponse.json(
+      {
+        error:
+          error instanceof Error
+            ? error.message
+            : "Failed to get response from AI.",
+      },
+      {
+        status: 500,
+      }
+    );
+  }
 }
