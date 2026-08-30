@@ -7,7 +7,7 @@ export default function Home() {
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const askAI = async (action: string) => {
+  const askAI = async (action) => {
     if (!code.trim()) {
       alert("Please enter your code or problem first.");
       return;
@@ -36,6 +36,8 @@ export default function Home() {
 
       setResponse(data.response);
     } catch (error) {
+      console.error("Frontend error:", error);
+
       setResponse(
         error instanceof Error
           ? error.message
@@ -50,12 +52,12 @@ export default function Home() {
     <main className="container">
       <div className="wrapper">
 
-        <div className="header">
+        <header className="header">
           <h1>CodeMentor AI</h1>
           <p>Your simple AI coding assistant</p>
-        </div>
+        </header>
 
-        <div className="card">
+        <section className="card">
           <label className="label">
             Enter your code or problem
           </label>
@@ -67,7 +69,6 @@ export default function Home() {
           />
 
           <div className="buttons">
-
             <button
               className="explain"
               onClick={() => askAI("Explain")}
@@ -91,11 +92,10 @@ export default function Home() {
             >
               Complexity
             </button>
-
           </div>
-        </div>
+        </section>
 
-        <div className="card">
+        <section className="card">
           <h2 className="response-title">
             AI Response
           </h2>
@@ -113,7 +113,7 @@ export default function Home() {
               Your AI response will appear here.
             </p>
           )}
-        </div>
+        </section>
 
       </div>
     </main>
