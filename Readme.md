@@ -13,7 +13,7 @@ CodeMentor AI is a simple AI-powered coding assistant that helps users understan
 
 - Next.js
 - React.js
-- TypeScript
+- JavaScript
 - Google Gemini API
 - Tailwind CSS
 
